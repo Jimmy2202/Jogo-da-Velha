@@ -11,6 +11,19 @@ for(let i = 0; i < draw.length;i++){
     }
 }
 
+const verify_specific_case = () =>{
+    if(draw[1][1] == draw[2][2] && draw[2][2] == "X"){
+        if(draw[0][2] == 0){
+            draw[0][2] = "O"
+            let botao = document.querySelector(`button[data-row='${0}'][data-col='${2}']`);
+            botao.innerHTML = "O"
+        return 1
+        }
+    }else{
+        return 0
+    }
+}
+
 const verify_empty = () =>{
     let x = 0, count = 0
     for(let i = 0; i < 3; i++){
@@ -33,6 +46,7 @@ const verify_empty = () =>{
 
 const atack_horizontal = () => {
     let circle = 0, zero = 0, x = 0, y = 0
+    console.log(draw)
     for(let i = 0; i < 3; i++){
         for(let j = 0; j < 3; j++){
             if(draw[i][j] == "O"){
@@ -44,6 +58,7 @@ const atack_horizontal = () => {
             }
 
             if(circle == 2 && zero != 0){
+                console.log("Não retorna mano?")
                 draw[x][y] = "O"
                 let botao = document.querySelector(`button[data-row='${x}'][data-col='${y}']`);
                 botao.innerHTML = "O"
@@ -582,6 +597,9 @@ const IA_Draw_Hard = (a,b) => {
         return
     }
 
+    if(verify_specific_case()){
+        return
+    }
 
     if(a == b == 0 || a == b == 2){
         aux++
